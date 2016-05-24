@@ -3,7 +3,7 @@
  */
 package entites;
 
-import dto.ChannelDTO;
+import entites.visitor.ChannelVisitor;
 
 public class EmailChannel extends Channel {
     private String email;
@@ -16,6 +16,11 @@ public class EmailChannel extends Channel {
         this.subject = subject;
     }
 
+    @Override
+    public <T> T accept(ChannelVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
+
     public String getEmail() { return email; }
 
     public void setEmail(String email) { this.email = email; }
@@ -24,11 +29,4 @@ public class EmailChannel extends Channel {
 
     public void setSubject(String subject) { this.subject = subject; }
 
-    @Override
-    public ChannelDTO toChannelDTO() {
-        ChannelDTO dto = new ChannelDTO(ChannelType.MAIL, this.getContent());
-        dto.setSubject(this.subject);
-        dto.setEmail(this.email);
-        return dto;
-    }
 }

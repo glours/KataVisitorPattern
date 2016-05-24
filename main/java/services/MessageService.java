@@ -4,10 +4,11 @@ package services;/*
 
 import dto.ChannelDTO;
 import entites.Message;
+import entites.visitor.ChannelToChannelDTO;
 
 public class MessageService {
 
     public ChannelDTO createChannelDTO(Message message) {
-        return message.getChannel().toChannelDTO();
+        return message.getChannel().accept(new ChannelToChannelDTO());
     }
 }

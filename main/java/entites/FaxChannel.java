@@ -3,7 +3,7 @@
  */
 package entites;
 
-import dto.ChannelDTO;
+import entites.visitor.ChannelVisitor;
 
 public class FaxChannel extends Channel {
 
@@ -14,14 +14,13 @@ public class FaxChannel extends Channel {
         this.faxNumber = faxNumber;
     }
 
+    @Override
+    public <T> T accept(ChannelVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
+
     public String getFaxNumber() { return faxNumber; }
 
     public void setFaxNumber(String faxNumber) { this.faxNumber = faxNumber; }
 
-    @Override
-    public ChannelDTO toChannelDTO() {
-        ChannelDTO dto = new ChannelDTO(ChannelType.FAX, this.getContent());
-        dto.setPhone(this.faxNumber);
-        return dto;
-    }
 }
